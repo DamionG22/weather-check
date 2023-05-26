@@ -4,20 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Links style sheets  -->
     <link rel="stylesheet" href="./reset.css"/>
     <link rel="stylesheet" href="./style.css"/>
     <title>Weather Checker</title>
 </head>
-<header class=""></header>
+<!-- Top of webpage text -->
+<header class="top">Live Weather Updates</header>
 <body>
-    <form id="search-form">
+    <!-- creates a form for users to submit  -->
+    <form class="searchBox" id="search-form">
         <input type="text" id="city-input" placeholder="Enter city name" />
         <button type="submit">Search</button>
+        <div id="weather-info"></div>
+       <div id="future-weather"></div>
       </form>
-      <div id="weather-info"></div>
-      <div id="future-weather"></div>
-    
-    
+     
+    <!-- Links JavaScript -->
   <script src="./script.js"></script>
 </body>
 </html>
