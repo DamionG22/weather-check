@@ -3,20 +3,38 @@ const searchForm = document.getElementById('search-form');
 const weatherInfo = document.getElementById('weather-info');
 const futureWeatherDisplay = document.getElementById('future-weather');
 
+
+function saveToLocalStorage(city) {
+  // Get the existing search history array from local storage (if any)
+  const existingSearchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+
+  // Adds the new city to the search history array
+  existingSearchHistory.push(city);
+
+  // Saves the updated search history array back to local storage
+  localStorage.setItem('searchHistory', JSON.stringify(existingSearchHistory));
+}
+
+
 // event listener for the form submit event
 searchForm.addEventListener('submit', function (event) {
   event.preventDefault();
 
   const cityInput = document.getElementById('city-input').value;
   const apiKey = '33ee9dfc864e17e04017196eff4eca3a';
+// Clears previous results.
+  weatherInfo.innerHTML = '';
+  futureWeatherDisplay.innerHTML = '';
+ 
 
-  // Make API request to OpenWeatherMap
+  // Makes API request to OpenWeatherMap
   const fiveDayUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&appid=${apiKey}&units=metric`;
 
   fetch(fiveDayUrl)
     .then(response => response.json())
     .then(data => {
       console.log(data);
+      saveToLocalStorage(cityInput);
       for (let i = 2; i < data.list.length; i += 8) {
         const futureWeatherTemp = data.list[i].main.temp;
         const futureWeatherDescription = data.list[i].weather[0].description
@@ -33,13 +51,7 @@ searchForm.addEventListener('submit', function (event) {
       <p> Tempatures ${futureWeatherTemp}</p>
       <p id="futureWeatherTemp"> Sky conditions ${futureWeatherDescription}</p>
 
-      `;
-
-
-
-
-
-
+      `
 
       }
     })
